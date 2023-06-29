@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>SAE 1&5 GAME</title>
+		<link href='https://fonts.googleapis.com/css?family=Bungee' rel='stylesheet'>
+		<link href="./style.css" rel="stylesheet">
+		<link href="./color.css" rel="stylesheet">
+
+		<!----------------- GAME ----------------->
+
+		<script src="./game/game.js"></script>
+		<script src="./game/config.js"></script>
+		<script src="./game/waves.js"></script>
+		<script src="./game/world.js"></script>
+
+		<!----------------- TILES ----------------->
+
+		<script src="./game/tiles/tile.js"></script>
+
+			<!----------------- RESSOURCES ----------------->
+
+			<script src="./game/tiles/ressources/stone.js"></script>
+			<script src="./game/tiles/ressources/wood.js"></script>
+			<script src="./game/tiles/ressources/iron.js"></script>
+
+			<!------------------ STRUTURES ------------------>
+
+			<script src="./game/tiles/structures/structure.js"></script>
+			<script src="./game/tiles/structures/base.js"></script>
+			<script src="./game/tiles/structures/tower.js"></script>
+			<script src="./game/tiles/structures/wall.js"></script>
+
+				<!------------------ TOWER ------------------>
+
+				<script src="./game/tiles/structures/tower/confusionTower.js"></script>
+				<script src="./game/tiles/structures/tower/iceTower.js"></script>
+				<script src="./game/tiles/structures/tower/fireTower.js"></script>
+
+		<!----------------- ENTITY ----------------->
+
+		<script src="./game/entity/entity.js"></script>
+		<script src="./game/entity/player.js"></script>
+		<script src="./game/entity/bullet.js"></script>
+		<script src="./game/entity/enemie.js"></script>
+
+			<!----------------- ENEMIES ----------------->
+
+			<script src="./game/entity/enemies/fastEnemie.js"></script>
+			<script src="./game/entity/enemies/tankEnemie.js"></script>
+			<script src="./game/entity/enemies/warriorEnemie.js"></script>
+
+		
+	</head>
+
+	<body onkeydown="touchEvent(event)">
+		<div id="main_screen" class="panel">
+			<h1 class="large_title">SAE 1&5 GAME</h1>
+
+			<div class="vertical_menu">
+				<div class="horizontal_menu">
+					<div class="panel_menu_button" onclick="panel('rules_screen')">
+						<h1 class="medium_title">RÈGLES</h1>
+					</div>
+					<div class="panel_menu_button" onclick="panel('play_rules_screen')">
+						<h1 class="medium_title">JOUER</h1>
+					</div>
+					<div class="panel_menu_button" onclick="panel('option_screen')">
+						<h1 class="medium_title">OPTIONS</h1>
+					</div>
+				</div>
+		
+				<div class="panel_exit_button" onclick="closeWindow()">
+					<h1 class="small_title">QUITTER</h1>
+				</div>
+			</div>
+		</div>
+
+		<div id="rules_screen" class="panel" style="display: none">
+			<h1 class="large_title">SYNOPSIS</h1>
+
+			<div class="sub_panel">
+				<h1 class="small_title" style="text-align: left;">Vous êtes un jeune développeur, spécialiser dans les bases de données. Vous avez réussi à créer la plus grande base de données qui regroupe tous les animaux au monde, avec en plus un classement non arbitraire ! À cause de ça, de nombreux méchants hackeur veulent la détruire, voire pire ! Modifier totalement votre classement. Pour les empêcher de nuire tous les jours durant la journée, vous farmez des ressources dans le cyberunivers qui entoure votre base de données. Avec ces ressources, vous pourriez créer des cyberdéfenses ! Mais attention au temps ! Une fois la nuit venue (pendant vos heures de sommeil) les méchants hackers tenteront de détruire votre base de données. Arriveriez-vous à protégé votre base de données ou allez-vous perdre à tout jamais ces précieuses données ?</h1>
+			</div>
+
+			<h1 class="large_title">RESSOURCES</h1>
+
+			<div class="horizontal_menu">
+				<div class="sub_panel">
+					<h1 class="small_title" style="text-align: left;">Comme résumé dans le synopsis, le but est de protéger une base de données (représentée dans une zone 4x4 au centre du plateau ci-dessus) <br><br> Il faudra récolter les ressources limitées disponibles sur la carte pour commencer le jeu (bois, pierre et fer). Pour ce faire, il faudra aller sur la case et presser sur la touche de clavier ‘E’. <br><br> Ces ressources serviront à construire des tours avec certains effets (ralentissement, brulure, confusion) pour vous défendre.</h1>
+				</div>
+
+				<div>
+					<h1 class="large_title" style="background-image: url('./images/key.png'); width: 15vw; height: 15vw; background-repeat: no-repeat; background-size: contain; line-height: 14vw;">E</h1>
+				</div>
+			</div>
+
+			<!-- <div class="sub_panel">
+				<h1 class="medium_title" style="text-align: left;">bois : <br><br> pierre : <br><br> fer :</h1>
+			</div> -->
+
+			<h1 class="large_title">TOURS</h1>
+
+			<div class="horizontal_menu">
+				<div class="sub_panel">
+					<h1 class="small_title" style="text-align: left;">Il faudra utiliser intelligemment les 3 ressources à votre disposition pour construire vos différents types de tours. <br><br> Les tours possèdes 3 niveaux d'amélioration, qui s'obtiennent avec les ressources disponibles. <br><br> La portée de la tour dépend de son niveau d'amélioration, par défaut elle est de 2 cases à partir du centre de la tour. <br><br> Pour placer une tour, faites la glisser depuis la barre de craft a droite de votre écran</h1>
+				</div>
+
+				<div class="vertical_menu">
+					<div class="sub_panel images" style="background-image: url('./images/ice_tower_1.png'); width: 4vw; height: 4vw;"></div>
+					<div class="sub_panel images" style="background-image: url('./images/fire_tower_1.png'); width: 4vw; height: 4vw;"></div>
+					<div class="sub_panel images" style="background-image: url('./images/confusion_tower_1.png'); width: 4vw; height: 4vw;"></div>
+				</div>
+			</div>
+
+			<div class="sub_panel">
+				<h1 class="small_title" style="text-align: left;">Tour glacée : <br> Ralentit l’avancée de ennemi touché <br><br> Tour de feu : <br> Inflige des dégats pendant une certaine durée <br><br> Tour de confusion : <br>désoriente l’ennemi touché pendant quelques secondes</h1>
+			</div>
+
+			<h1 class="large_title">VAGUES</h1>
+
+			<div class="sub_panel">
+				<h1 class="small_title" style="text-align: left;">Vous vous défendez contre des vagues d'ennemis de plus en plus coriace, le nombre de vagues peut-être défini dans le menu ou simplement être défini comme 'Persévérance' c'est-à-dire un mode infini. <br><br> Il y a deux phases de jeu par vague : <br> La phase de Farming durant laquelle vous récoltez les ressources avec un petit personnage. <br> La phase d'attaque durant laquelle le personnage dort dans la base de données.</h1>
+			</div>
+
+			<div class="sub_panel">
+				<h1 class="small_title" style="text-align: left;">Les ennemis attaquent la base de données mais n'hésite pas à attaquer les tours qui se trouvent sur leur chemin <br><br> Lors de la phase d'attaque, si les ennemis touchent la base, elle perd de la vie. Si elle tombe à 0%, c'est perdu. <br><br> Les ennemis ont des points de vie et ne disparaissent de la carte uniquement quand ils sont morts</h1>
+			</div>
+
+			<div class="vertical_menu">
+				<div class="panel_exit_button" onclick="panel('rules_screen')">
+					<h1 class="small_title">RETOUR</h1>
+				</div>
+			</div>
+		</div>
+
+		<div id="option_screen" class="panel" style="display: none;">
+			<h1 class="large_title">OPTIONS</h1>
+
+			<div class="vertical_menu">
+				<div class="horizontal_menu">
+					<div class="panel_menu_button" onclick="panel('avatar_screen')">
+						<h1 class="medium_title">CHANGER D'AVATAR</h1>
+					</div>
+					<div class="panel_menu_button" onclick="panel('volume_screen')">
+						<h1 class="medium_title">REGLER LE VOLUME</h1>
+					</div>
+					<div class="panel_menu_button" onclick="panel('musique_screen')">
+						<h1 class="medium_title">MUSIQUE DE FOND</h1>
+					</div>
+				</div>
+		
+				<div class="panel_exit_button" onclick="panel('option_screen')">
+					<h1 class="small_title">RETOUR</h1>
+				</div>
+			</div>
+		</div>
+
+		<div id="avatar_screen" class="panel" style="display: none;">
+			<h1 class="large_title">AVATAR</h1>
+
+			<div class="vertical_menu">
+				<div class="horizontal_menu">
+					<div class="panel_menu_button" onclick="changeAvatar(0)">
+						<img src="./avatars/mario.png" style="width: 100%; height: 100%;">
+					</div>
+					<div class="panel_menu_button" onclick="changeAvatar(1)">
+						<img src="./avatars/hellokitty.png" style="width: 100%; height: 100%;">
+					</div>
+					<div class="panel_menu_button" onclick="changeAvatar(2)">
+						<img src="./avatars/pikachu.png" style="width: 100%; height: 100%;">
+					</div>
+					<div class="panel_menu_button" onclick="changeAvatar(3)">
+						<img src="./avatars/chopper.png" style="width: 100%; height: 100%;">
+					</div>
+					<div class="panel_menu_button" onclick="changeAvatar(4)">
+						<img src="./avatars/bou.jpg" style="width: 100%; height: 100%;">
+					</div>
+				</div>
+
+				<div class="panel_exit_button" onclick="panel('avatar_screen')">
+					<h1 class="small_title">RETOUR</h1>
+				</div>
+			</div>
+		</div>
+
+		<div id="volume_screen" class="panel" style="display: none;">
+			<h1 class="large_title">VOLUME</h1>
+
+			<input type="range" min="0" max="100" value="10" id="volumeMusique" style="position: absolute; top: 0px; left: 0px;" onmousemove="volumeMusique()" onmouseover="volumeMove()">
+		</div>
+
+		<div id="musique_screen" class="panel" style="display: none;">
+			<h1 class="large_title">MUSIQUE</h1>
+
+			<div class="vertical_menu">
+				<div class="panel_menu_button" style="width: 80%;" onclick="playMusique(0)">
+					<h1 class="small_title">Rune Factory Frontier - Kross Theme</h1>
+				</div>
+
+				<div class="panel_menu_button" style="width: 80%;" onclick="playMusique(1)">
+					<h1 class="small_title">Snails House - Christmas of a Wandering Ghost Official MV</h1>
+				</div>
+
+				<div class="panel_menu_button"  style="width: 80%;" onclick="playMusique(2)">
+					<h1 class="small_title">Phoenix Wright - Cornered Acapella</h1>
+				</div>
+
+				<div class="panel_menu_button"  style="width: 80%;" onclick="playMusique(3)">
+					<h1 class="small_title">You wanted this</h1>
+				</div>
+
+				<div class="panel_menu_button"  style="width: 80%;" onclick="playMusique(4)">
+					<h1 class="small_title">Asterix est la</h1>
+				</div>
+
+				<div class="panel_exit_button" onclick="panel('musique_screen')">
+					<h1 class="small_title">RETOUR</h1>
+				</div>
+			</div>
+		</div>
+
+		<div id="play_rules_screen" class="panel" style="display: none;">
+			<h1 class="large_title">JOUER</h1>
+
+			<form>
+				<div class="sub_panel">
+					<div class="vertical_menu">
+						<div class="horizontal_menu" style="align-items: left; justify-content: left;">
+							<h1 class="medium_title" style="width: 50%; text-align: left;">CHOISIR LE NOMBRE DE VAGUES:</h1>
+							<input type="number" min="1" max="100" value="15" style="width: 15%; height: 8vw;" id="waves_number">
+						</div>
+
+						<div class="horizontal_menu" style="align-items: left; justify-content: left;">
+							<h1 class="medium_title" style="width: 50%; text-align: left;">MODE PERSEVERANCE:</h1>
+							<input type="checkbox" id="perseverance_mode">
+						</div>
+					</div>
+				</div>
+			</form>
+
+			<div class="horizontal_menu">
+				<div class="panel_exit_button" style="background-color: #FF86C8" onclick="panel('play_screen'); launchGame();">
+					<h1 class="small_title">LANCER</h1>
+				</div>
+
+				<div class="panel_exit_button" onclick="panel('play_rules_screen')">
+					<h1 class="small_title">RETOUR</h1>
+				</div>
+			</div>
+		</div>
+
+		<div id="play_screen" class="panel" style="display: none; padding: 0px; overflow-y: hidden; overflow-x: auto;">
+			<div id="result_popup" class="panel" style="display: none; z-index: 5; margin: 0 auto; width: 50vw; height: 25vw; background-color: var(--body-backgound-color); position: absolute; margin-top: 40px;">
+				<h1 class="large_title" id="result_popup_text"></h1>
+
+				<div id="button_menu_play" class="horizontal_menu">
+					<div class="panel_exit_button" style="padding: 1vw; background-color: var(--menu-button-color); margin: 1vw;" onclick="launchGame();">
+						<h1 class="small_title" style="margin: 0.1vw">REJOUER</h1>
+					</div>
+
+					<div class="panel_exit_button" style="padding: 1vw; margin: 1vw;" onclick="panel('play_screen')">
+						<h1 class="small_title" style="margin: 0.1vw">QUITTER</h1>
+					</div>
+				</div>
+			</div>
+
+			<div class="horizontal_menu" style="z-index: 1; position: absolute;">
+				<div class="vertical_menu" style="margin-top: -34vw; margin-left: 10px; justify-content: left;">
+					<h1 class="small_title" id="waves_title" style="margin: 0;">VAGUE:</h1>
+					<h1 class="small_title" id="waves_time_title" style="margin: 0;">TIME:</h1>
+					<h1 class="small_title" id="base_title" style="margin: 0;">BASE:</h1>
+				</div>
+				
+				<div id="main_panel_canvas" class="vertical_menu" style="margin: 0 auto; margin-top: 8px;">
+					<canvas id="game_canvas" style="border: 1px solid black; background-color: #68ab68; width: 100%;" ondrop="Game.drop(event)" ondragover="Game.allowDrop(event)" ondragleave="Game.deniedDrop(event)"></canvas>
+				</div>
+
+				<div class="vertical_menu">
+					<div class="sub_panel" style="background-color: var(--menu-exit-color); margin: 0; padding: 0.5vw">
+						<div class="vertical_menu">
+							<div class="sub_panel images" name="iceTower" style="background-image: url('./images/ice_tower_1.png'); width: 0.5vw; height: 0.5vw; margin: 0.5vw;" draggable="true" ondragstart="Game.drag(event)"></div>
+							<div class="sub_panel images" name="fireTower" style="background-image: url('./images/fire_tower_1.png'); width: 0.5vw; height: 0.5vw; margin: 0.5vw;" draggable="true" ondragstart="Game.drag(event)"></div>
+							<div class="sub_panel images" name="confusionTower" style="background-image: url('./images/confusion_tower_1.png'); width: 0.5vw; height: 0.5vw; margin: 0.5vw;" draggable="true" ondragstart="Game.drag(event)"></div>
+							<div class="sub_panel images" name="wall" style="background-image: url('./images/wood_wall.png'); width: 0.5vw; height: 0.5vw; margin: 0.5vw;" draggable="true" ondragstart="Game.drag(event)"></div>
+						</div>
+					</div>
+
+					<div class="sub_panel" style="padding: 0.5vw; margin: 1vw; width: 3.5vw;">
+						<img src="./images/iron.png" draggable="false" style="width: 2vw; height: 2vw; margin: auto; display: block; padding-bottom: 15px;">
+						<h1 class="tiny_title" id="iron_title">9999999</h1>
+					</div>
+
+					<div class="sub_panel" style="padding: 0.5vw; margin: 1vw; width: 3.5vw;">
+						<img src="./images/stone.png" draggable="false" style="width: 2vw; height: 2vw; margin: auto; display: block; padding-bottom: 15px;">
+						<h1 class="tiny_title" id="stone_title">9999999</h1>
+					</div>
+
+					<div class="sub_panel" style="padding: 0.5vw; margin: 1vw; width: 3.5vw;">
+						<img src="./images/wood.png" draggable="false" style="width: 2vw; height: 2vw; margin: auto; display: block; padding-bottom: 15px;">
+						<h1 class="tiny_title" id="wood_title">9999999</h1>
+					</div>			
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script>
+	var list_opened_panel = [];
+
+	if(sessionStorage.getItem('list_opened_panel') != null){
+		var list_opened_panel_local = sessionStorage.getItem('list_opened_panel').split(",");
+
+		for(let i = 0; i < list_opened_panel_local.length; i++){
+			panel(list_opened_panel_local[i]);
+		}
+	}
+
+	function panel(panel_id){
+		var panel = document.getElementById(panel_id);
+
+		if(panel == null) return;
+
+		panel.addEventListener("animationend", function(e) {
+			e.preventDefault();
+
+			if(panel.style.animationName == "slide-down") {
+				panel.style.display = "none";
+			}
+		});
+
+		if (panel.style.display === "none") {
+			panel.style.display = "block";
+			panel.style.animation = "1s slide-up";
+			if(panel_id != "result_popup"){
+				list_opened_panel.push(panel_id);
+			}
+		}
+		else {
+			panel.style.animation = "1s slide-down";
+			if(panel_id != "result_popup"){
+				list_opened_panel.splice(list_opened_panel.length - 1);
+			}
+		}
+
+		sessionStorage.setItem('list_opened_panel', list_opened_panel);
+	}
+
+	function closeWindow() {
+		if(confirm("Voulez-vous vraiment quitter ?")) {
+			window.close();
+		}
+	}
+
+	function touchEvent(e){
+		var keynum;
+
+		if(window.event){
+			keynum = e.keyCode;
+		}else if(e.which){
+			keynum = e.which;
+		}
+
+		if (keynum == 27) {
+			if(list_opened_panel[list_opened_panel.length - 1] != "result_popup"){
+				panel(list_opened_panel[list_opened_panel.length - 1]);
+			}
+		}
+	}
+</script>
+
+<script>
+	var game = null;
+
+	function launchGame(){
+		var canvas = document.getElementById("game_canvas");
+		var context = canvas.getContext('2d');
+
+		var waves_number = document.getElementById("waves_number");
+		var perseverance_mode = document.getElementById("perseverance_mode");
+
+		var waves_title = document.getElementById("waves_title");
+		var waves_time_title = document.getElementById("waves_time_title");
+
+		var iron_title = document.getElementById("iron_title");
+		var stone_title = document.getElementById("stone_title");
+		var wood_title = document.getElementById("wood_title"); 
+		var base_title = document.getElementById("base_title");
+
+		var main_menu = document.getElementById("main_panel_canvas");
+
+		if (document.getElementById("result_popup").style.display !== "none") {
+			panel("result_popup");
+		}
+
+		game = new Game(context, canvas, perseverance_mode.checked, waves_number.value, waves_title, waves_time_title, iron_title, stone_title, wood_title, main_menu, base_title, "result_popup");
+		game.start();
+
+		console.log(game);
+	}
+</script>
+
+<script>
+	let audio = new Audio();
+
+	if(sessionStorage.getItem('audio_volume') != null){
+		const slider = document.getElementById("volumeMusique");
+		slider.value = sessionStorage.getItem('audio_volume') * 100;
+	}
+
+	function volumeMusique(){
+		const slider = document.getElementById("volumeMusique");
+		audio.volume = slider.value / 100;
+
+		sessionStorage.setItem('audio_volume', slider.value / 100);
+	}
+
+	function playMusique(musique_number){
+		const menu = document.getElementById("musique_screen");
+		const buttons = menu.getElementsByClassName("panel_menu_button");
+
+		for(var i = 0; i < buttons.length; i++){ buttons[i].style.backgroundColor = ""; }
+		buttons[musique_number].style.backgroundColor = "#FAB144";
+
+		audio.pause();
+		audio.currentTime = 0;
+
+		if(musique_number == 0){
+			audio.src = "./musiques/Rune_Factory_Frontier_-_Kross_Theme.mp3";
+		}
+
+		if(musique_number == 1){
+			audio.src = "./musiques/Snails_House_-_Christmas_of_a_Wandering_Ghost_Official_MV.mp3";
+		}
+
+		if(musique_number == 2){
+			audio.src = "./musiques/Phoenix_Wright_-_Cornered_Acapella.mp3";
+		}
+
+		if(musique_number == 3){
+			audio.src = "./musiques/You_wanted_this.mp3";
+		}
+
+		if(musique_number == 4){
+			audio.src = "./musiques/Asterix_est_la.mp3";
+		}
+
+		volumeMusique();
+		audio.loop = true;
+		audio.play();
+	}
+
+	function volumeMove(){
+		let direction = Math.floor(Math.random() * 4);
+		const musiqueButton = document.getElementById("volumeMusique");
+		
+		console.log(parseFloat(musiqueButton.style.left) + " " + parseFloat(musiqueButton.style.top) + " " + window.innerHeight + " " + window.innerWidth);
+
+		if(direction == 0){
+			musiqueButton.style.top = parseFloat(musiqueButton.style.top) - musiqueButton.clientHeight * 2 + "px";
+		}
+		if(direction == 1){
+			musiqueButton.style.top = parseFloat(musiqueButton.style.top) + musiqueButton.clientHeight * 2 + "px";
+		}
+		if(direction == 2){
+			musiqueButton.style.left = parseFloat(musiqueButton.style.left) - musiqueButton.clientWidth * 2 + "px";
+		}
+		if(direction == 3){
+			musiqueButton.style.left = parseFloat(musiqueButton.style.left) + musiqueButton.clientWidth * 2 + "px";
+		}
+
+		volumeSize();
+	}
+
+	function volumeSize(){
+		const musiqueButton = document.getElementById("volumeMusique");
+
+		if(parseFloat(musiqueButton.style.top) < 0){
+			musiqueButton.style.top = 0 + "px";
+		}
+
+		if(parseFloat(musiqueButton.style.left) < 0){
+			musiqueButton.style.left = 0 + "px";
+		}
+
+		
+		if(parseFloat(musiqueButton.style.top) + musiqueButton.clientHeight > window.innerHeight - 46){
+			musiqueButton.style.top = window.innerHeight - musiqueButton.clientHeight * 2 + "px";
+		}
+
+		if(parseFloat(musiqueButton.style.left) + musiqueButton.clientWidth > window.innerWidth - 36){
+			musiqueButton.style.left = window.innerWidth - musiqueButton.clientWidth * 2 + "px";
+		}
+	}
+
+	const musiqueButton = document.getElementById("volumeMusique");
+	musiqueButton.style.left = window.innerWidth / 2 - musiqueButton.clientWidth / 2 - 46 / 2 + "px";
+	musiqueButton.style.top = window.innerHeight / 2 - musiqueButton.clientHeight / 2 - 46 / 2+ "px";
+
+	window.addEventListener("resize", volumeSize);
+</script>
+
+<script>
+	let avatar = "";
+
+	if(sessionStorage.getItem('avatar_number') != null){
+		changeAvatar(sessionStorage.getItem('avatar_number'));
+	}else{
+		changeAvatar(3);
+	}
+	
+	function changeAvatar(avatar_number){
+		const menu = document.getElementById("avatar_screen");
+		const buttons = menu.getElementsByClassName("panel_menu_button");
+
+		for(var i = 0; i < buttons.length; i++){ buttons[i].style.backgroundColor = ""; }
+		buttons[avatar_number].style.backgroundColor = "#FAB144";
+
+		if(avatar_number == 0){
+			avatar = "./avatars/mario.png";
+		}
+
+		if(avatar_number == 1){
+			avatar = "./avatars/hellokitty.png";
+		}
+
+		if(avatar_number == 2){
+			avatar = "./avatars/pikachu.png";
+		}
+
+		if(avatar_number == 3){
+			avatar = "./avatars/chopper.png";
+		}
+
+		if(avatar_number == 4){
+			avatar = "./avatars/bou.jpg";
+		}
+
+		Game.avatar = avatar;
+
+		sessionStorage.setItem('avatar_number', avatar_number);
+	}
+</script>
